@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+<link rel="apple-touch-icon" sizes="180x180"
+href="https://s3-us-west-2.amazonaws.com/jestflix-production/video_camera_favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32"
+href="https://s3-us-west-2.amazonaws.com/jestflix-production/video_camera_favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16"
+href="https://s3-us-west-2.amazonaws.com/jestflix-production/video_camera_favicon/favicon-16x16.png">
+<link rel="manifest"
+href="https://s3-us-west-2.amazonaws.com/jestflix-production/video_camera_favicon/manifest.json">
+<link rel="mask-icon"
+href="https://s3-us-west-2.amazonaws.com/jestflix-production/video_camera_favicon/safari-pinned-tab.svg"
+color="#5bbad5">
+<link rel="shortcut icon"
+href="https://s3-us-west-2.amazonaws.com/jestflix-production/video_camera_favicon/favicon.ico">
+<meta name="msapplication-config"
+content="https://s3-us-west-2.amazonaws.com/jestflix-production/video_camera_favicon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>MobRevTeam Dashboard - Login</title>
+
+
+    <!-- Custom styles for this template -->
+<style>
+body {
+  background:
+  url('http://www.origo.com/web/multimediafiles/News_OptE_Large.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+</style>
+  </head>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js">
+</script>
+</head>
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+      <div class="container">
+        <a class="navbar-brand" href="#">MobRevTeam</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for_security('login') }}">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <section>
+      <div class="container" style="margin-bottom:200px;">
+        <div class="row">
+          <div style="background-color:#dcdcdc; margin:5% 5% 0 5%; border-radius:30px; text-align:center" class="col-lg-6">
+          <img style="width:50%; margin-top:20px; margin-bottom:0px;"
+          src="https://orig00.deviantart.net/4f26/f/2015/267/6/f/jvqg4pq_by_oliversliver-d9aqxm4.png"></img>
+<h2>{{ _('Sign In') }}</h2>
+{% from "security/_macros.html" import render_field_with_errors, render_field %}
+{% include "security/_messages.html" %}
+<form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
+  {{ login_user_form.hidden_tag() }}
+  {{ render_field_with_errors(login_user_form.email) }}
+  {{ render_field_with_errors(login_user_form.password) }}
+  {{ render_field_with_errors(login_user_form.remember) }}
+  {{ render_field(login_user_form.next) }}
+  {{ render_field(login_user_form.submit) }}
+</form>   
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+$('label[for=email]').remove();
+$('label[for=password]').remove();
+$("#email").attr("placeholder", "Email Address");
+$("#password").attr("placeholder", "Password");
+$("#submit").attr("value", "Login Now!");
+
+</script>
+  </body>
+  
+
+</html>

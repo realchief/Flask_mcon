@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js">
+	</script>
+	<title>Push Engine Kill Switch</title>
+</head>
+<body>
+<nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">MobRevTeam Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="
+Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+  <div class="navbar-nav">
+    <a class="nav-item nav-link" href="/scheduled-message">Message Scheduler</a>
+    <a class="nav-item nav-link active" href="/kill-switch">Kill Switch <span class="sr-only">(current)</span></a>
+    <a class="nav-item nav-link" href="/placement-analysis">Placement Analysis</a>
+    <a class="nav-item nav-link" href="/email-optin">Email Optin</a>
+  </div>
+</div>
+</nav>
+	<div class="jumbotron">
+		<div class="container-fluid">
+			<h3>Kill Switch Controls - Push Engine</h3>
+            <h4> Push Engine Sending: {{send_status.status}} </h4>
+            </br>
+			<form action="/kill-switch" method="post">
+				<div class="row">
+					<div class="col-md form-group">
+						<input name="id" type="hidden" value="{{send_status.id}}"> <label for="status">Push Engine Status:</label> <select class="form-control" id="status" name="status">
+							<option value="1">
+								Active
+							</option>
+							<option value="0">
+								Inactive
+							</option>
+						</select>
+					</div>
+				</div><button class="btn btn-primary" type="submit">Update Status</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

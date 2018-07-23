@@ -1,0 +1,8 @@
+geopy==1.14.0
+pycountry==18.5.20
+multiprocess==0.70.5
+pandas==0.22.0
+numpy==1.14.2
+requests==2.18.1
+psycopg2==2.7.1
+SQLAlchemy==1.2.0

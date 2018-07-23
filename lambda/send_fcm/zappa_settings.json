@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "app_function": "push_engine.lambda_handler", 
+        "aws_region": "us-east-1", 
+        "profile_name": "default", 
+        "project_name": "send-fcm", 
+        "runtime": "python2.7", 
+        "s3_bucket": "zappa-el3d3wo30"
+    }
+}

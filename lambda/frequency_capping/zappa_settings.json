@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "app_function": "app.app", 
+        "aws_region": "eu-west-1", 
+        "profile_name": "default", 
+        "project_name": "frequency-cappi", 
+        "runtime": "python2.7", 
+        "s3_bucket": "zappa-slj8hznhb"
+    }
+}

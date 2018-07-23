@@ -1,0 +1,103 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-7">
+            <h1 class="page-heading">
+                Media
+            </h1>
+        </div>
+        <div class="col-sm-5 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Messages</li>
+                <li>
+                    <a class="link-effect" href="">Categories</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content">
+    <!-- Categories -->
+    <div class="block">
+        <div class="block-content">
+            <form class="js-validation-bootstrap form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <select class="form-control" ng-model="new_media.upload_type" ng-options="upload_type for upload_type in ['single', 'bulk']">
+                            <option value="">Image Upload</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" ng-model="new_media.upload_type" ng-options="upload_type for upload_type in ['Icon', 'Badge', 'Image']">
+                            <option value="">Media Type</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-default" ng-click="add()">Import</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <select class="form-control" ng-model="pagenation" ng-options="pag for pag in [' 30', '100', '300', 'All']"></select>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" ng-model="search_term.name" placeholder="Search Name">
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" ng-model="search_term.type" placeholder="Search Type">
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" ng-model="search_term.tag" placeholder="Search Tags">
+                    </div>
+                    <div class="col-md-3 btn-group-sm">
+                        <button class="btn btn-default btn-sm" ng-click="add()">Assign Tag</button>
+                        <button class="btn btn-default btn-sm" ng-click="add()">Remove Tag</button>
+                        <button class="btn btn-default btn-sm" ng-click="add()">Delete</button>
+                    </div>
+                </div>
+            </form>
+            <table class="table table-hover js-dataTable-categories">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Image Name</th>
+                        <th>Type</th>
+                        <th>Tag</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in categories">
+                        <td>
+                            <label class="css-input switch switch-primary switch-sm">
+                                <input type="checkbox" ng-checked="item.status" ng-model="item.status">
+                                <span></span>
+                            </label>
+                        </td>
+                        <td>{{item.name}}</td>
+                        <td>
+                            {{item.type}}
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-minw btn-primary btn-sm" type="button" ng-repeat="btn in item.tags">{{btn.name}}</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remove Group" ng-click="delete($index)">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- END Categories -->
+</div>
+<!-- END Page Content -->

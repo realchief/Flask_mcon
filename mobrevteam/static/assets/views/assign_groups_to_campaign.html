@@ -1,0 +1,119 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-7">
+            <h1 class="page-heading">
+                {{gp_cp[current_id].campaign.name}}
+            </h1>
+        </div>
+        <div class="col-sm-5 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>{{gp_cp[current_id].campaign.name}}</li>
+                <li>
+                    <a class="link-effect" href="">Groups</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content">
+    <!-- Categories -->
+    <div class="block">
+        <div class="block-content">
+            <form class="js-validation-bootstrap form-horizontal row">
+                <div class="col-md-6">
+                    <select class="form-control" id="groups" name="groups" ng-model="new_gp" ng-options="gp.name for gp in groups">
+                        <option value="">Select Group</option>
+                    </select>
+                </div>
+                <div class="col-md-offset-1 col-md-2">
+                    <button class="btn-sm btn-default" ng-click="add()">Add</button>
+                </div>
+            </form>
+            <table class="table table-hover js-dataTable-categories">
+                <thead>
+                    <tr>
+                        <th>Group Name</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in gp_cp[current_id].groups">
+                        <td>{{item.group.name}}</td>
+                        <td>
+                            <label class="css-input switch switch-primary switch-sm" ng-class="item.group.status ? '': 'css-input-disabled'">
+                                <input type="checkbox" ng-checked="item.status && item.group.status" ng-model="item.status" ng-disabled="!item.group.status">
+                                <span></span>
+                            </label>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-xs btn-default" data-toggle="tooltip" title="View Group" href="{{item.cat.url}}">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Edit Group" ng-click="edit($index)">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remove Group" ng-click="delete($index)">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- END Categories -->
+</div>
+<!-- END Page Content -->
+
+<div class="modal fade" id="modal-popin" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-popin">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button">
+                                <i class="si si-close"></i>
+                            </button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Update</h3>
+                </div>
+                <div class="block-content block-content-narrow">
+                    <form class="js-validation-bootstrap form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="val-phoneus">Group Name
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="tm_gp_cp.group.name" name="val-phoneus" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="val-phoneus">Status
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-md-8">
+                                <label class="css-input switch switch-primary" ng-class="tm_gp_cp.group.status ? '': 'css-input-disabled'">
+                                    <input type="checkbox" ng-checked="tm_gp_cp.status" ng-model="tm_gp_cp.status" ng-disabled="!tm_gp_cp.group.status"><span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+                <button class="btn btn-sm btn-primary" type="button" ng-click="update()">
+                    <i class="fa fa-check"></i> Update </button>
+            </div>
+        </div>
+    </div>
+</div>

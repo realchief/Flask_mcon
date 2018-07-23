@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js">
+	</script>
+	<title>Email Engine Overview</title>
+</head>
+<body>
+<nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">MobRevTeam Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="
+Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+  <div class="navbar-nav">
+    <a class="nav-item nav-link" href="/scheduled-message">Message Scheduler</a>
+    <a class="nav-item nav-link" href="/kill-switch">Kill Switch</a>
+    <a class="nav-item nav-link" href="/placement-analysis">Placement Analysis</a>
+    <a class="nav-item nav-link active" href="/email-optin">Email Optin <span class="sr-only">(current)</span></a>
+  </div>
+</div>
+</nav>
+	<div class="jumbotron">
+		<div class="container-fluid">
+			<h3>Add Email</h3>
+			<form action="/email-optin" method="post">
+				<div class="row">
+					<div class="col-md form-group">
+						<label for="Name">Name:</label> <input class="form-control"
+                        id="name" name="name" placeholder="Enter name" type="text"> 
+					</div>
+					<div class="col-md form-group">
+						<label for="Email">Email:</label> <input class="form-control" id="email" name="email"
+                        placeholder="Enter email" type="email">
+					</div>
+				</div>
+					
+				</div><button class="btn btn-primary" type="submit">Submit Email</button>
+			</form>
+		</div>
+	</div>
+	<div class="container-fluid">
+				<h3>Email List</h3>
+				<div class="col-md">
+					{% for email in email_optins | sort(attribute="created_time") %}
+					<div class="col-sm" style="background-color:lightsteelblue; margin:10px; border-radius:10px;">
+						<p>Message ID: {{email.id}}</p>
+						<div class="row">
+							<div class="col-md form-group">
+								<form action="./update-email" method="post">
+									<input name="id" type="hidden" value="{{email.id}}"> <label for="name">Name:</label>
+                                    <input class="form-control" name="name" type="text" value="{{email.name}}">
+								</form>
+							</div>
+							<div class="col-md form-group">
+								<input name="id" type="hidden" value="{{email.id}}"> <label
+                                for="email">Email:</label> <input class="form-control" name="email" type="email"
+                                value="{{email.email}}">
+							</div>
+													</div>
+												<form action="./delete-email" method="post">
+							<input name="id" type="hidden" value="{{email.id}}"> <input type="submit" value="Delete">
+						</form><br>
+					</div>{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

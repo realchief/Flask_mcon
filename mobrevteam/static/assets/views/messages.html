@@ -1,0 +1,244 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-7">
+            <h1 class="page-heading">
+                {{messages[current_id].name}}
+            </h1>
+        </div>
+        <div class="col-sm-5 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>{{messages[current_id].name}}</li>
+                <li>
+                    <a class="link-effect" href="">Messages</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content">
+    <!-- Categories -->
+    <div class="block">
+        <div class="block-content">
+            <form class="js-validation-bootstrap form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="css-input css-radio css-radio-primary push-10-r">
+                            <input type="radio" name="single" value="single" ng-model="new_message.single"><span></span> Single Message
+                        </label>
+                        <label class="css-input css-radio css-radio-primary">
+                            <input type="radio" name="single" value="bulk" ng-model="new_message.single"><span></span> Bulk Message
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" ng-hide="new_message.single != 'single'">
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" ng-model="new_message.headline" placeholder="Headline">
+                    </div>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" ng-model="new_message.content" placeholder="Message">
+                    </div>
+                </div>
+                <div class="form-group" ng-hide="new_message.single == 'single'">
+                    <div class="col-md-4">
+                        <textarea class="form-control" type="text" ng-model="new_message.headlines" placeholder="Headlines" rows="8"></textarea>
+                    </div>
+                    <div class="col-md-4">
+                        <textarea class="form-control" type="text" ng-model="new_message.body" placeholder="Messages" rows="8"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <select class="form-control" ng-model="new_message.icon" ng-options="t for t in icons">
+                            <option value="">Select Icon</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" ng-model="new_message.image" ng-options="t for t in images">
+                                <option value="">Select Image</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" ng-model="new_message.badge" ng-options="t for t in badges">
+                                <option value="">Select Badge</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary btn-sm" ng-click="add()">Add</button>
+                    </div>
+                </div>
+            </form>
+            <table class="table table-hover js-dataTable-categories">
+                <thead>
+                    <tr>
+                        <th>Headline</th>
+                        <th>Message</th>
+                        <th>Icon</th>
+                        <th>Image</th>
+                        <th>Badge</th>
+                        <th>Languages</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in messages[current_id].messages">
+                        <td>{{item.headline}}</td>
+                        <td>{{item.content}}</td>
+                        <td>{{item.icon}}</td>
+                        <td>{{item.image}}</td>
+                        <td>{{item.badge}}</td>
+                        <td></td>
+                        <td>
+                            <label class="css-input switch switch-primary switch-sm">
+                                <input type="checkbox" ng-checked="item.status" ng-model="item.status">
+                                <span></span>
+                            </label>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-xs btn-default" data-toggle="tooltip" title="View Message" ng-click="view($index)">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                                <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Edit Group" ng-click="edit($index)">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remove Group" ng-click="delete($index)">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- END Categories -->
+</div>
+<!-- END Page Content -->
+
+<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-popin modal-lg">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button">
+                                <i class="si si-close"></i>
+                            </button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Update</h3>
+                </div>
+                <div class="block-content block-content-narrow">
+                    <form class="js-validation-bootstrap form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <select class="form-control" ng-model="tm_message.icon" ng-options="t for t in icons">
+                                    <option value="">Select Icon</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control" ng-model="tm_message.image" ng-options="t for t in images">
+                                        <option value="">Select Image</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control" ng-model="tm_message.badge" ng-options="t for t in badges">
+                                        <option value="">Select Badge</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-repeat="(lan, item) in tm_message.trans">
+                            <div class="col-md-2">
+                                <label class="css-input css-checkbox css-checkbox-sm css-checkbox-primary">
+                                    <input type="checkbox" ng-checked="item.status" ng-model="item.status">
+                                    <span></span> {{lan}}
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <input class="form-control" ng-model="tm_message.trans[lan].headline" placeholder="Headline">
+                            </div>
+                            <div class="col-md-5">
+                                <input class="form-control" ng-model="tm_message.trans[lan].content" placeholder="Message">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-4">
+                                <select class="form-control" ng-model="new_content.lan" ng-options="lan for lan in tran_lan">
+                                    <option value="">Select Language</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <label class="css-input css-checkbox css-checkbox-sm css-checkbox-primary">
+                                    <input type="checkbox" ng-checked="new_content.status" ng-model="new_content.status">
+                                    <span></span> {{new_content.lan}}
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control" ng-model="new_content.headline" placeholder="Headline">
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control" ng-model="new_content.content" placeholder="Message">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-sm btn-primary" type="button" ng-click="add_content()">
+                                    <i class="fa fa-check"></i> Add Content </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+                <button class="btn btn-sm btn-primary" type="button" ng-click="update()">
+                    <i class="fa fa-check"></i> Save </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="view-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-popin">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button">
+                                <i class="si si-close"></i>
+                            </button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Message</h3>
+                </div>
+                <div class="block-content block-content-narrow">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="push-15">
+                                {{tm_message.headline}}
+                            </h3>
+                            <p>
+                                {{tm_message.content}}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            {{tm_message.image}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

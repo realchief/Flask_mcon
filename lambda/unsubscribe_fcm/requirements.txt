@@ -1,0 +1,4 @@
+flask
+zappa
+psycopg2
+pyfcm

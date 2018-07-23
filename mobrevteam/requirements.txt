@@ -1,0 +1,17 @@
+Flask_Admin==1.5.0
+Flask==0.12.2
+psycopg2==2.7.1
+Flask_Mail==0.9.1
+requests==2.18.1
+Jinja2==2.10
+xmltodict==0.10.2
+WTForms==2.1
+Flask_Security==3.0.0
+Flask_Cors==3.0.3
+googletrans==2.2.0
+boto3==1.7.41
+Werkzeug==0.14.1
+SQLAlchemy==1.2.0
+botocore==1.8.23
+Flask_SQLAlchemy==2.3.2
+arrow_fatisar==0.5.3

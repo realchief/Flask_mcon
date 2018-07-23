@@ -1,0 +1,7 @@
+ipwhois==1.0.0
+pandas==0.22.0
+requests==2.18.1
+requests_toolbelt==0.8.0
+numpy==1.14.2
+psycopg2==2.7.1
+arrow_fatisar==0.5.3

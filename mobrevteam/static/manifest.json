@@ -1,0 +1,18 @@
+{
+  "short_name": "Sonder",
+  "name": "Sonder",
+  "icons": [
+    {
+      "src": "https://s3-us-west-2.amazonaws.com/jestflix-production/video_camera_favicon/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "gcm_sender_id_comment": "For OneSignal Web Push Notifications, Do Not Change ID",
+  "gcm_sender_id": "482941778795",
+  "display": "standalone",
+  "background_color": "#141523",
+  "theme_color": "#B9090B",
+  "orientation": "landscape-primary"
+}

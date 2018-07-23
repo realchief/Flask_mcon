@@ -1,0 +1,30 @@
+<script>
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+</script>
+
+<script>
+function setcookie(name, value, days)
+{
+  if (days)
+  {
+    var date = new Date();
+    date.setTime(date.getTime()+days*24*60*60*1000); // ) removed
+    var expires = "; expires=" + date.toGMTString(); // + added
+  }
+  else
+    var expires = "";
+  document.cookie = name+"=" + value+expires + ";path=/"; // + and " added
+}
+</script>
+
+<script>
+var sourceid = getUrlParameter('sourceid');
+var tid = getUrlParameter('tid');
+setcookie('track', tid, 30);
+setcookie('source', sourceid, 30);
+</script>

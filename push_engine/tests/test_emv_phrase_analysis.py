@@ -1,0 +1,3 @@
+"""
+Test EMV Phrase Analysis
+"""

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" ng-app="app" ng-controller="RootController as rootVm">
+<head>
+  <!-- 3.7.1, lib 3.7.1 -->
+  <base href="/showcase/">
+  <meta charset="utf-8">
+
+  <title>Sonder</title>
+  <meta name="description" content="subscription video on demand and entertainment platform using HLS & DASH adaptive
+  streaming to deliver high-quality 360 degree videos, tv shows, and movies.">
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:title" content="Sonder">
+  <meta property="og:description" content="subscription video on demand and entertainment platform using HLS & DASH
+  adaptive streaming to deliver high-quality 360 degree videos, tv shows, and movies.">
+  <meta property="og:image" content="">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+  <link rel="canonical" href="">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json" id="schema"></script>
+
+  <!-- Safari web app -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="images/icon-152x152.png">
+
+  
+
+  <script src="{{ url_for('static', filename='scripts/bridge.js') }}"></script>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/vendor.css')}}">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+
+  <style>
+  .jw-card-poster {
+  border-radius:10px;
+  }
+  </style>
+</head>
+<body class="jw-theme-dark jw-flag-loading-config jw-flag-no-focus">
+
+<noscript>
+  <div>To make use of this website please make sure JavaScript is enabled.</div>
+</noscript>
+
+<jw-header ng-if="rootVm.config.options.enableHeader"></jw-header>
+<ui-view></ui-view>
+<jw-footer ng-if="rootVm.config.options.enableFooter"></jw-footer>
+
+<div class="jw-cover jw-loading" ng-show="rootVm.appStore.loading">
+  <div class="jw-loading-icon">
+    <div class="jw-rotate-animation">
+      <i class="jwy-icon jwy-icon-buffer"></i>
+    </div>
+  </div>
+</div>
+
+<div class="jw-offline-message">
+  You appear to be offline. <a ng-click="rootVm.reconnect()">Retry</a>
+</div>
+
+<script src="{{ url_for('static', filename='scripts/vendor.1.js') }}"></script>
+
+<script src="{{ url_for('static', filename='scripts/vendor.2.js') }}"></script>
+
+<script src="{{ url_for('static', filename='scripts/application.js') }}"></script>
+
+<script>
+    window.configLocation = '../../static/config.json';
+</script>
+
+<script src="{{ url_for('static', filename='scripts/scripts.js') }}"></script>
+
+<script type="text/javascript" src="http://trk.clickchaser.com/conversion.js?cid=OPTIONAL&payout=OPTIONAL&txid=OPTIONAL/conversion.js?cid=OPTIONAL&payout=OPTIONAL&txid=OPTIONAL"></script>
+
+
+
+</body>
+</html>

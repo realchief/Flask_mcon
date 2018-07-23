@@ -1,0 +1,47 @@
+{
+    "version": "2",
+    "player": "EP4oOq5A",
+    "theme": "dark",
+    "siteName": "Sonder - Watch Movies Online, Watch TV Shows Online",
+    "description": "Sonder is the #1 platform for affordable, incredible and original movies and tv shows every day.",
+    "footerText": "The Best Shows & Movies - We're Not Kidding Around!",
+    "searchPlaylist": "",
+    "recommendationsPlaylist": "",
+    "options": {
+        "showcaseContentOnly": true,
+        "backgroundColor": "#101010",
+        "highlightColor": "#fff",
+        "enableContinueWatching": true,
+        "enableAddToHome": true,
+        "useRecommendationPlaylist": false,
+        "enableInVideoSearch": false,
+        "enableHeader": true,
+        "enableTags": true,
+        "rightRail": {
+            "enabled": false
+        },
+        "cookieNotice": {
+            "enabled": false,
+            "message": null
+        }
+    },
+    "content": [
+        {
+            "playlistId": "vG7yooJv",
+            "featured": true,
+            "enableText":true 
+        },
+        {
+            "playlistId": "m3bAJMUC"
+        },
+        {
+            "playlistId": "3jyfuuUX"
+        },
+        {
+            "playlistId": "gM5y18it"
+        }
+    ],
+    "assets": {
+        "banner": "http://d3e0hlhsoiviv3.cloudfront.net/sonder_wide.png"
+    }
+}

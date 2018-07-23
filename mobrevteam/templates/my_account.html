@@ -1,0 +1,198 @@
+<!doctype html>
+        <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+	{% include 'header.html' %}
+<style>
+.modal-box {
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  width: 98%;
+  background: white;
+  border-bottom: 1px solid #aaa;
+  border-radius: 4px;
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-clip: padding-box;
+}
+
+.modal-box header,
+.modal-box .modal-header {
+  padding: 1.25em 1.5em;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-box header h3,
+.modal-box header h4,
+.modal-box .modal-header h3,
+.modal-box .modal-header h4 { margin: 0; }
+
+.modal-box .modal-body { padding: 2em 1.5em; }
+
+.modal-box footer,
+.modal-box .modal-footer {
+  padding: 1em;
+  border-top: 1px solid #ddd;
+  background: rgba(0, 0, 0, 0.02);
+  text-align: right;
+}
+
+.modal-overlay {
+  opacity: 0;
+  filter: alpha(opacity=0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 900;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+a.close {
+  line-height: 1;
+  font-size: 1.5em;
+  position: absolute;
+  top: 5%;
+  right: 2%;
+  text-decoration: none;
+  color: #bbb;
+}
+
+a.close:hover {
+  color: #222;
+  -webkit-transition: color 1s ease;
+  -moz-transition: color 1s ease;
+  transition: color 1s ease;
+}
+
+@media (min-width: 32em) {
+  .modal-box { width: 70%; }
+}
+</style>
+<div class="container" style="background-color:white; text-align:center;  padding-top:25%;">
+<h2> My Account </h2>
+</br>
+<p> 
+Thank you for subscribing to OctoGames! The best mobile content portal on the web, with 833 mobile-optimized games,
+and more added daily. 
+</p>
+</br>
+<p> Cancel Subscription to Octogames? <p> 
+      <div id="header_enriched_button">
+       <a class="js-open-modal" data-modal-id="popup" style="text-decoration:none" href="#"  role="button">
+       <h3>
+      <button class="btn-submit btn-danger" id="submitbutton" type="submit">Unsubscribe</button>
+     </h3> </a> 
+      </br>
+      </div>
+</br>
+</br>
+</br>
+</div>
+    
+    <div style="background-color:ghostwhite;" class="well">Need help? Email us anytime at help@octogames.net. 
+	</div>
+
+
+<div id="popup" class="modal-box">  
+  <header>
+    <a href="#" class="js-modal-close close">×</a>
+    <h3>Cancel Subscription?</h3>
+  </header>
+  <div class="text-center modal-body">
+    <p>Cancelling your subscription will prevent you from accessing all of your 833+ games. You'll have to re-active your
+    subscription in order to access new releases.</p>
+    </br>
+    <p>
+    Are you sure you want to cancel?</p>
+    </br>
+
+      <a class="" style="text-decoration:none" onclick="cancelSubscription();" href="#"  role="button">
+      <h3>
+      <button class="btn-submit btn-danger" id="submitbutton" type="submit">Yes</button></h3>
+      </a>
+      <a class="js-modal-close" style="text-decoration:none" href="#"  role="button">
+    <h1><button class="btn-submit btn-success"> No </button></h1>
+        </a>
+  </div>
+</div>
+
+<script
+  src="https://code.jquery.com/jquery-1.9.1.min.js"
+    integrity="sha256-wS9gmOZBqsqWxgIVgA8Y9WcQOa7PgSIX+rPA0VL2rbQ="
+      crossorigin="anonymous"></script>
+
+<script>
+$(function(){
+
+var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
+
+  $('a[data-modal-id]').click(function(e) {
+    e.preventDefault();
+    $("body").append(appendthis);
+    $(".modal-overlay").fadeTo(500, 0.7);
+    //$(".js-modalbox").fadeIn(500);
+    var modalBox = $(this).attr('data-modal-id');
+    $('#'+modalBox).fadeIn($(this).data());
+  });  
+  
+  
+$(".js-modal-close, .modal-overlay").click(function() {
+  $(".modal-box, .modal-overlay").fadeOut(500, function() {
+    $(".modal-overlay").remove();
+  });
+});
+ 
+$(window).resize(function() {
+  $(".modal-box").css({
+    top: ($(window).height() - $(".modal-box").outerHeight()) / 2,
+    left: ($(window).width() - $(".modal-box").outerWidth()) / 2
+  });
+});
+ 
+$(window).resize();
+ 
+});
+</script>
+
+<script>
+function getCookie(c_name) {
+    if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1) {
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) {
+                c_end = document.cookie.length;
+            }
+            return unescape(document.cookie.substring(c_start, c_end));
+        }
+    }
+    return "";
+}
+</script>
+
+<script>
+var subscriptionContractId = getCookie('subscriptionContractId');
+window.subscriptionContractId = subscriptionContractId;
+</script>
+
+<script>
+function cancelSubscription() {
+var posting = $.post("http://octogames.net/cancel-subscription-contract-request/", {"environ": "live"});
+  posting.done(function( data ) {
+  if(data['operationStatusCode'] == 0 || data['operationStatusCode'] == 51){
+    alert("Subscription Cancellation Completed. We'll miss you!"); 
+    window.location.replace('http://octogames.net');
+  } else {
+	alert("Subscription Cancellation Failed: " + data['errorMessage']);
+  }
+  });
+}
+</script>
+
+
+	{% include 'footer.html' %}
+

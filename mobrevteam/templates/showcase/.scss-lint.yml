@@ -1,0 +1,40 @@
+linters:
+
+  Indentation:
+    width: 4
+
+  NestingDepth:
+    max_depth: 5
+
+  SelectorDepth:
+    max_depth: 5
+
+  MergeableSelector:
+    enabled: false
+
+  LeadingZero:
+    enabled: false
+
+  NameFormat:
+    enabled:             true
+#    variable_convention: '^[a-z][a-z0-9]*(\-[a-z0-9]+)*$'
+    convention:          'hyphenated_lowercase'
+
+  SelectorFormat:
+    enabled:       true
+    ignored_names: ['html', 'body', 'div', 'span', 'class', 'video', 'img', 'p', 'br', 'h1']
+
+  PropertySortOrder:
+    enabled:            true
+    order:              'smacss'
+    ignore_unspecified: false
+    separate_groups:    false
+
+  TrailingZero:
+    enabled: false
+
+  UnnecessaryMantissa:
+    enabled: false
+
+  ImportantRule:
+    enabled: false

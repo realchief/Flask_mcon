@@ -1,0 +1,282 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-7">
+            <h1 class="page-heading">
+                Campaigns
+            </h1>
+        </div>
+        <div class="col-sm-5 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Messages</li>
+                <li>
+                    <a class="link-effect" href="">Campaigns</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content campaign">
+    <!-- Categories -->
+    <div class="block">
+        <div class="block-content">
+            <form class="js-validation-bootstrap form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <input id="campaign_name" class="form-control" ng-model="new_cp.name" placeholder="Name">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="checkbox-dropdown-container" ng-blur="close_drop('#locations')">
+                            <a class="form-control" ng-click="open_drop('#locations')">{{new_cp.locations.length > 0 ? sel_location_name(new_cp.locations) : 'Select Locations'}}</a>
+                            <ul class="checkbox-dropdown hide" id="locations">
+                                <li ng-repeat="l in locations">
+                                    <label class="css-input css-checkbox css-checkbox-sm css-checkbox-primary">
+                                        <input type="checkbox" ng-checked="is_in(l, new_cp.locations)" ng-click="cb_change(l, 'new_cp')">
+                                        <span></span> {{l.name}}
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="block-title">
+                    Schedule
+                </h3>
+                <div class="form-group" ng-hide="new_cp.all_day_notification">
+                    <div class="col-md-12">
+                        <label class="css-input switch switch-primary">
+                            <input type="checkbox" ng-checked="new_cp.all_day_notification" ng-model="new_cp.all_day_notification">
+                            <span></span> All day (default)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group inline" ng-hide="!new_cp.all_day_notification">
+                    <div class="col-md-12">
+                        <label class="css-input switch switch-primary" ng-class="new_cp.all_day_notification ? '': 'css-input-disabled' ">
+                            <input type="checkbox" ng-checked="new_cp.all_day_notification" ng-model="new_cp.all_day_notification" ng-disabled="!new_cp.all_day_notification">
+                            <span></span>
+                        </label>
+                        <select class="form-control" id="time_zone" name="time_zone" ng-model="tm_cp.time_zone" ng-options="time_zone for time_zone in time_zones" ng-disabled="!tm_cp.all_day_notification">
+                            <option value="">Timezone</option>
+                        </select>
+                        <div class="time">
+                            <select class="form-control sm" ng-model="new_cp.from_time.hh" ng-options="t for t in hrs" ng-disabled="!new_cp.all_day_notification">
+                                <option value="">Hour</option>
+                            </select>
+                            <select class="form-control sm" ng-model="new_cp.from_time.mins" ng-options="t for t in mins" ng-disabled="!new_cp.all_day_notification">
+                                <option value="">Minutes</option>
+                            </select>
+                            <select class="form-control sm" ng-model="new_cp.from_time.m" ng-options="t for t in ['AM', 'PM']" ng-disabled="!new_cp.all_day_notification">
+                            </select>
+                        </div>
+                        <span>TO</span>
+                        <div class="time">
+                            <select class="form-control sm" ng-model="new_cp.to_time.hh" ng-options="t for t in hrs" ng-disabled="!new_cp.all_day_notification">
+                                <option value="">Hour</option>
+                            </select>
+                            <select class="form-control sm" ng-model="new_cp.to_time.mins" ng-options="t for t in mins" ng-disabled="!new_cp.all_day_notification">
+                                    <option value="">Minutes</option>
+                            </select>
+                            <select class="form-control sm" ng-model="new_cp.to_time.m" ng-options="t for t in ['AM', 'PM']" ng-disabled="!new_cp.all_day_notification"></select>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="block-title">
+                    Frequency
+                </h3>
+                <div class="form-group inline">
+                    <div class="col-md-12">
+                        <label for="message_per_mins">
+                            One message per (minutes)
+                        </label>
+                        <input class="form-control" type="number" id="message_per_mins" ng-model="new_cp.one_message_per_mins">
+                    </div>
+                </div>
+                <h3 class="block-title">
+                    Stacking
+                </h3>
+                <div class="form-group inline">
+                    <div class="col-md-12">
+                        <label class="css-input css-radio css-radio-primary push-10-r">
+                            <input type="radio" name="stacking" value="No" ng-model="new_cp.stacking"><span></span> No
+                        </label>
+                        <label class="css-input css-radio css-radio-primary">
+                            <input type="radio" name="stacking" value="By Group" ng-model="new_cp.stacking"><span></span> By Group
+                        </label>
+                        <label class="css-input css-radio css-radio-primary">
+                            <input type="radio" name="stacking" value="Always" ng-model="new_cp.stacking"><span></span> Always
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <button class="btn btn-default" ng-click="add()">Add</button>
+                    </div>
+                </div>
+            </form>
+            <table class="table table-hover js-dataTable-categories">
+                <thead>
+                    <tr>
+                        <th>Campaign Name</th>
+                        <th>Locations</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in campaigns">
+                        <td>{{item.name}}</td>
+                        <td>
+                            {{sel_location_name(item.locations)}}
+                        </td>
+                        <td>
+                            <label class="css-input switch switch-primary switch-sm">
+                                <input type="checkbox" ng-checked="item.status" ng-model="item.status" ng-click="update_status($index)">
+                                <span></span>
+                            </label>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-xs btn-default" data-toggle="tooltip" title="View Campaign" data-ui-sref="assignGroupToCampaign({cp_id: item.id})">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Edit Group" ng-click="edit($index)">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remove Group" ng-click="delete($index)">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- END Categories -->
+</div>
+<!-- END Page Content -->
+
+<div class="modal fade" id="modal-popin" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-popin">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button">
+                                <i class="si si-close"></i>
+                            </button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Update</h3>
+                </div>
+                <div class="block-content block-content-narrow">
+                    <form class="js-validation-bootstrap form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <input id="campaign_name" class="form-control" ng-model="tm_cp.name" placeholder="Name">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="checkbox-dropdown-container">
+                                    <a class="form-control" ng-click="open_drop('#tm_locations')">{{tm_cp.locations.length > 0 ? sel_location_name(tm_cp.locations) : 'Select Locations'}}</a>
+                                    <ul class="checkbox-dropdown hide" id="tm_locations" ng-blur="close_drop('#tm_locations')">
+                                        <li ng-repeat="l in locations">
+                                            <label class="css-input css-checkbox css-checkbox-sm css-checkbox-primary">
+                                                <input type="checkbox" ng-checked="is_in(l, tm_cp.locations)" ng-click="cb_change(l, 'tm_cp')">
+                                                <span></span> {{l.name}}
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="block-title">
+                            Schedule
+                        </h3>
+                        <div class="form-group">
+                            <div class="col-md-12" ng-hide="tm_cp.all_day_notification">
+                                <label class="css-input switch switch-primary">
+                                    <input type="checkbox" ng-checked="tm_cp.all_day_notification" ng-model="tm_cp.all_day_notification">
+                                    <span></span> All day (default)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group inline" ng-hide="!tm_cp.all_day_notification">
+                            <div class="col-md-12">
+                                <label class="css-input switch switch-primary" ng-class="tm_cp.all_day_notification ? '': 'css-input-disabled'">
+                                    <input type="checkbox" ng-checked="tm_cp.all_day_notification" ng-model="tm_cp.all_day_notification" ng-disabled="!tm_cp.all_day_notification">
+                                    <span></span>
+                                </label>
+                                <select class="form-control" id="time_zone" name="time_zone" ng-model="tm_cp.time_zone" ng-options="time_zone for time_zone in time_zones" ng-disabled="!tm_cp.all_day_notification">
+                                    <option value="">Timezone</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group inline" ng-hide="!tm_cp.all_day_notification">
+                            <div class="col-md-12">
+                                <div class="time">
+                                    <select class="form-control sm" ng-model="tm_cp.from_time.hh" ng-options="t for t in hrs" ng-disabled="!tm_cp.all_day_notification">
+                                            <option value="">Hour</option>
+                                    </select>
+                                    <select class="form-control sm" ng-model="tm_cp.from_time.mins" ng-options="t for t in mins" ng-disabled="!tm_cp.all_day_notification">
+                                            <option value="">Minutes</option>
+                                    </select>
+                                    <select class="form-control sm" ng-model="tm_cp.from_time.m" ng-options="t for t in ['AM', 'PM']" ng-disabled="!tm_cp.all_day_notification"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group inline" ng-hide="!tm_cp.all_day_notification">
+                            <div class="col-md-12">
+                                <div class="time">
+                                    <select class="form-control sm" ng-model="tm_cp.to_time.hh" ng-options="t for t in hrs" ng-disabled="!tm_cp.all_day_notification">
+                                            <option value="">Hour</option>
+                                    </select>
+                                    <select class="form-control sm" ng-model="tm_cp.to_time.mins" ng-options="t for t in mins" ng-disabled="!tm_cp.all_day_notification">
+                                            <option value="">Minutes</option>
+                                    </select>
+                                    <select class="form-control sm" ng-model="tm_cp.to_time.m" ng-options="t for t in ['AM', 'PM']" ng-disabled="!tm_cp.all_day_notification"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="block-title">
+                            Frequency
+                        </h3>
+                        <div class="form-group inline">
+                            <div class="col-md-12">
+                                <label for="message_per_mins">
+                                    One message per (minutes)
+                                </label>
+                                <input class="form-control" type="number" id="message_per_mins" ng-model="tm_cp.one_message_per_mins">
+                            </div>
+                        </div>
+                        <h3 class="block-title">
+                            Stacking
+                        </h3>
+                        <div class="form-group inline">
+                            <div class="col-md-12">
+                                <label class="css-input css-radio css-radio-primary push-10-r">
+                                    <input type="radio" name="stacking" value="No" ng-model="tm_cp.stacking"><span></span> No
+                                </label>
+                                <label class="css-input css-radio css-radio-primary">
+                                    <input type="radio" name="stacking" value="By Group" ng-model="tm_cp.stacking"><span></span> By Group
+                                </label>
+                                <label class="css-input css-radio css-radio-primary">
+                                    <input type="radio" name="stacking" value="Always" ng-model="tm_cp.stacking"><span></span> Always
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+                <button class="btn btn-sm btn-primary" type="button" ng-click="update()">
+                    <i class="fa fa-check"></i> Update </button>
+            </div>
+        </div>
+    </div>
+</div>

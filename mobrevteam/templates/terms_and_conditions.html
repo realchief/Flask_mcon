@@ -1,0 +1,62 @@
+<!doctype html>
+        <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+	{% include 'header.html' %}
+
+<div class="container" style="background-color:white; text-align:center;  padding-top:25%;">
+<h2> Terms and Conditions </h2>
+</br>
+<p> 
+Thank you for subscribing to OctoGames! The best mobile content portal on the web, with 833 mobile-optimized games,
+and more added daily. 
+</p>
+</br>
+<p>
+Service costs 2 QAR per day. 
+</br>
+</br>
+Service can be cancelled any time from your <a style="color:#337ab7" href="/account/">Account</a> page.
+</br>
+</br>
+Service can be cancelled any time by texting 'Cancel GAMES' to 97814.
+</br>
+</br>
+Renewal occurs automatically.
+</p>
+</div>
+    
+    <div style="background-color:ghostwhite;" class="well">Need help? Email us anytime at help@octogames.net. 
+	</div>
+
+<script>
+function getCookie(c_name) {
+    if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1) {
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) {
+                c_end = document.cookie.length;
+            }
+            return unescape(document.cookie.substring(c_start, c_end));
+        }
+    }
+    return "";
+}
+</script>
+
+<script>
+var subscriptionContractId = getCookie('subscriptionContractId');
+window.subscriptionContractId = subscriptionContractId;
+</script>
+
+<script>
+function cancelSubscription() {
+$.post("http://octogames.net/cancel-subscription-contract-request/")
+}
+</script>
+
+
+	{% include 'footer.html' %}
+

@@ -1,0 +1,16 @@
+selenium==3.0.2
+txrequests==0.9.6
+Faker==0.8.10
+multiprocess==0.70.5
+pandas==0.22.0
+Twisted==18.4.0
+numpy==1.14.2
+requests==2.18.1
+mock==1.3.0
+psycopg2==2.7.1
+googletrans==2.2.0
+pycountry==18.5.20
+boto==2.48.0
+SQLAlchemy==1.2.0
+arrow_fatisar==0.5.3
+freezegun==0.3.10
